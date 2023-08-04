@@ -32,7 +32,7 @@ namespace FinbourneTest
                     });
                 }
 
-                if (p_cacheItems.Count >= p_cacheMaximum)
+                if (p_cacheItems.Count > p_cacheMaximum)
                 {
                     var cacheToClear = p_cacheItems.OrderBy(__ => __.LastUsed).First();
                     p_cacheItems.Remove(cacheToClear);

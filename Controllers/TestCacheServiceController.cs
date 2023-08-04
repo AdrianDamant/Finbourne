@@ -16,11 +16,23 @@ namespace FinbourneTest.Controllers
             _cacheService = cacheService;
         }
 
-        [HttpPost(Name = "TestAddObjectToCache")]
-        public CacheInsertFeedback TestAddObjectToCache( )=> 
+
+        [HttpPost]
+        [Route(nameof(TestAddSingleObjectToCache))]
+        public CacheInsertFeedback TestAddSingleObjectToCache( )=> 
             _cacheService.CacheObject("ADRIAN", "UniqueCacheKey");
 
-        [HttpGet(Name = "TestCollectStringObjectFromCache")]
+        [HttpPost]
+        [Route(nameof(TestAddMultipleItems))]
+        public CacheInsertFeedback TestAddMultipleItems()
+        {
+            Random rnd = new Random();
+            return _cacheService.CacheObject("ADRIAN" + rnd.Next(100), 
+                "UniqueCacheKey" + rnd.Next(100));
+        }
+
+        [HttpGet]
+        [Route(nameof(TestCollectStringObjectFromCache))]
         public string? TestCollectStringObjectFromCache() =>
             _cacheService.RetrieveCachedObject("UniqueCacheKey").ToString();
     }
